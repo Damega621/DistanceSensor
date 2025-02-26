@@ -6,7 +6,13 @@ int myFunction(int, int);
 
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  int sdc = 21;
+
+  int sda = 22;
+
+  serial()
+  
+  
 }
 
 void loop() {
