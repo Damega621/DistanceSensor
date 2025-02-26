@@ -1,19 +1,14 @@
 #include <Arduino.h>
-#include<Adafruit_VL53L0X.h>
+#include <Wire.h>
+#include <Adafruit_VL53L0X.h>
 
-// put function declarations here:
-int myFunction(int, int);
 
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(115200);
+  Wire.begin(22, 21);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
 }
