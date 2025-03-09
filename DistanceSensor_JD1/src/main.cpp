@@ -51,9 +51,8 @@ void setup() {
     while (1);
   }
 
-  sensor.begin();
-  sensor.setGpioConfig(VL53L0X_GPIO1_PIN, LOW, false); // Set GPIO1 pin to LOW, adn disable interrupt
   sensor.setMeasurementTimingBudgetMicroSeconds(20000); // Adjust as needed (in microseconds)
+  //sensor.setGpioConfig(VL53L0X_GPIO1_PIN, LOW, false); // Set GPIO1 pin to LOW, adn disable interrupt
   
   sensor.startRangeContinuous(0); // Start continuous mode
 
@@ -73,20 +72,20 @@ void loop() {
 uint16_t distance = sensor.readRange();
 
 
-  if (sensor.timeoutOccurred()) {
-    Serial.println("Timeout occurred!");
-    lcd.setCursor(0, 1);
-    lcd.print("Timeout!        ");  //Clear row
-  } else {
-    Serial.print("Distance: ");
-    Serial.print(distance);
-    Serial.println(" mm");
+if (measure.RangeStatus == 0) {
+  // Valid measurement
+  Serial.print("Distance: ");
+  Serial.print(measure.RangeMilliMeter);
+  Serial.println(" mm");
+  
+  lcd.setCursor(0, 1);
+  lcd.print(measure.RangeMilliMeter);
+  lcd.print(" mm        ");
+} else {
+  Serial.println("Out of range");
+  lcd.setCursor(0, 1);
+  lcd.print("Out of range   ");
+}
 
-    // Display on LCD
-    lcd.setCursor(0, 1); // Set cursor to the second row
-    lcd.print(distance);
-    lcd.print(" mm        "); // Pad with spaces to clear previous digits
-  }
-
-  delay(10); // Adjust delay as needed
+  delay(100); // Adjust delay as needed
 }
