@@ -21,7 +21,7 @@
 
 
 #if I2C_LCD
-#include <LiquidCrystal_I2C.h> // If using I2C LC
+#include <LiquidCrystal_I2C.h> // If using I2C LCD
 // LCD Configuration (I2C)
 #define LCD_ADDRESS 0x27 // I2C Address of the LCD from I2C Scanner
 #define LCD_COLUMNS 16
@@ -76,7 +76,7 @@ void setup() {
 
 }
 
-#define I2C_SCAMMER 0
+#define I2C_SCANNER 0
 #define VL53L0X_RANGE_STATUS_CHECK 0
 void loop() {
 
@@ -103,36 +103,36 @@ if (measure.RangeStatus != 0) {
   return;
 }
 #else
-if (distance < 1320) {
-  // Valid measurement
-  Serial.print("Distance:      ");
-  Serial.print(measure.RangeMilliMeter);
-  Serial.println(" mm");
-  lcd.setCursor(0, 0);
-  lcd.println("Distance:       ");
-  
-  lcd.setCursor(10,0);
-  //lcd.print(measure.RangeMilliMeter);
-  
-  lcd.print(distance);
-  lcd.setCursor(14, 0);
-  lcd.print("mm");
-  lcd.setCursor(0, 1);
-  lcd.println("                ");
-} else {
-  Serial.println("OUT OF RANGE   ");
-  lcd.setCursor(0, 0);
-  lcd.println("  INVALID READ  ");
-  lcd.setCursor(0, 1);
-  lcd.println("  OUT OF RANGE  ");
-}
+  if (distance < 1320) {
+    // Valid measurement
+    Serial.print("Distance:      ");
+    Serial.print(measure.RangeMilliMeter);
+    Serial.println(" mm");
+    lcd.setCursor(0, 0);
+    lcd.println("Distance:       ");
+    
+    lcd.setCursor(10,0);
+    //lcd.print(measure.RangeMilliMeter);
+    
+    lcd.print(distance);
+    lcd.setCursor(14, 0);
+    lcd.print("mm");
+    lcd.setCursor(0, 1);
+    lcd.println("                ");
+  } else {
+    Serial.println("OUT OF RANGE   ");
+    lcd.setCursor(0, 0);
+    lcd.println("  INVALID READ  ");
+    lcd.setCursor(0, 1);
+    lcd.println("  OUT OF RANGE  ");
+  }
 #endif
 
   delay(100); // Adjust delay as needed
 }
 
 
-#if I2C_SCAMMER
+#if I2C_SCANNER
 void setup() {
   Wire.begin();
   Serial.begin(115200);
